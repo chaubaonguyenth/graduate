@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thiệp mời tốt nghiệp - Châu iu</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff3e4;--card:#ffffff;--pink:#ff8fb1;--mint:#7fdcc0;--sun:#ffd36b;--sky:#9ed8ff;--ink:#5a3e5c;--soft:#8c6f8e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2140;--card:#3b2f57;--ink:#fff1f6;--soft:#d8c6e6}}
+:root[data-theme="dark"]{--bg:#2b2140;--card:#3b2f57;--ink:#fff1f6;--soft:#d8c6e6}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.script{font-family:'Pacifico','Brush Script MT',cursive;font-weight:400}
+#bg{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+#bg span{position:absolute;bottom:-60px;animation:up linear infinite;opacity:.8}
+@keyframes up{to{transform:translateY(-115vh) rotate(40deg)}}
+#stage{position:relative;height:100%;overflow:hidden}
+.pg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px 20px 80px;transition:transform .6s cubic-bezier(.7,0,.2,1),opacity .6s;overflow-y:auto}
+.box{width:100%;max-width:420px;background:var(--card);border-radius:36px;padding:30px 24px;text-align:center;box-shadow:0 10px 0 var(--pink),0 24px 40px rgba(90,62,92,.18);border:4px solid var(--ink);position:relative;margin:auto}
+.box.b2{box-shadow:0 10px 0 var(--mint),0 24px 40px rgba(90,62,92,.18)}
+.box.b3{box-shadow:0 10px 0 var(--sun),0 24px 40px rgba(90,62,92,.18)}
+.box.b4{box-shadow:0 10px 0 var(--sky),0 24px 40px rgba(90,62,92,.18)}
+.tag{display:inline-block;background:var(--sun);color:#5a3e5c;font-weight:800;padding:2px 16px;border-radius:99px;font-size:14px;letter-spacing:1px;border:3px solid var(--ink);transform:rotate(-3deg)}
+h1{font-size:34px;line-height:1.1;margin:12px 0 6px;font-weight:800}
+h2{font-size:24px;font-weight:800;margin:10px 0 4px}
+p{color:var(--soft);font-size:17px;line-height:1.5;margin:8px 0}
+.hl{color:var(--pink)}
+.who{font-size:32px;color:var(--pink);margin:2px 0 10px}
+.name{font-size:44px;color:var(--pink);line-height:1.2;margin:6px 0}
+.btn{font:inherit;font-weight:800;font-size:18px;cursor:pointer;border:3px solid var(--ink);background:var(--pink);color:#fff;padding:10px 26px;border-radius:99px;box-shadow:0 5px 0 var(--ink);text-decoration:none;display:inline-block;margin:8px 4px 6px;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.g{background:var(--mint);color:var(--ink)}
+.mascot{width:150px;height:150px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(3deg)}}
+.cal{width:170px;margin:12px auto;border:4px solid var(--ink);border-radius:22px;overflow:hidden;background:#fff;color:var(--ink);transform:rotate(-3deg)}
+.cal .top{background:var(--pink);color:#fff;font-weight:800;padding:4px;font-size:18px;letter-spacing:2px}
+.cal .day{font-size:84px;font-weight:800;line-height:1;padding:6px 0 0}
+.cal .dow{font-weight:700;padding-bottom:8px;font-size:18px}
+.count{display:inline-block;background:var(--mint);color:var(--ink);font-weight:800;border:3px solid var(--ink);border-radius:16px;padding:4px 16px;margin-top:6px}
+.pin{font-size:64px;animation:bob 2s ease-in-out infinite;display:inline-block}
+.addr{background:var(--bg);border-radius:18px;padding:10px 14px;margin:10px 0;font-size:15px}
+.deco{position:absolute;font-size:34px;animation:bob 3s ease-in-out infinite}
+#nav{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:none;align-items:center;justify-content:center;gap:14px;z-index:5}
+#nav button{width:44px;height:44px;border-radius:50%;border:3px solid var(--ink);background:var(--sun);font-size:20px;font-weight:800;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+#dots{display:flex;gap:8px}
+#dots i{width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--ink);transition:.3s}
+#dots i.on{background:var(--pink);width:30px;border-radius:9px}
+#mute{position:fixed;right:12px;top:calc(12px + env(safe-area-inset-top,0px));z-index:6;border:3px solid var(--ink);background:var(--card);color:var(--ink);border-radius:99px;font:inherit;font-weight:700;padding:2px 14px;cursor:pointer;display:none}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:9;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+#gen textarea{width:100%;height:110px;border:3px solid var(--ink);border-radius:16px;padding:10px;font:inherit;background:var(--bg);color:var(--ink);margin:8px 0}
+#out{font-size:12px;text-align:left;word-break:break-all;color:var(--soft)}
+#out div{padding:6px 0;border-bottom:2px dashed var(--pink)}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<button id="mute">🔊 Nhạc</button>
+
+<main id="stage">
+  <!-- Trang 1: bìa -->
+  <section class="pg">
+    <div class="box">
+      <span class="deco" style="left:-8px;top:-14px">⭐</span><span class="deco" style="right:-6px;top:30px;animation-delay:-1s">🎈</span>
+      <svg class="mascot" viewBox="0 0 150 150" aria-hidden="true">
+        <ellipse cx="75" cy="88" rx="48" ry="46" fill="#ffd9b8" stroke="#5a3e5c" stroke-width="4"/>
+        <polygon points="75,14 18,40 75,64 132,40" fill="#5a3e5c"/>
+        <path d="M45 55v18q30 16 60 0V55q-30 14-60 0z" fill="#5a3e5c"/>
+        <path d="M122 42v34" stroke="#ffd36b" stroke-width="4"/><circle cx="122" cy="80" r="6" fill="#ffd36b"/>
+        <circle cx="56" cy="92" r="6" fill="#5a3e5c"/><circle cx="94" cy="92" r="6" fill="#5a3e5c"/>
+        <circle cx="58" cy="90" r="2" fill="#fff"/><circle cx="96" cy="90" r="2" fill="#fff"/>
+        <ellipse cx="42" cy="106" rx="9" ry="6" fill="#ff8fb1" opacity=".7"/><ellipse cx="108" cy="106" rx="9" ry="6" fill="#ff8fb1" opacity=".7"/>
+        <path d="M63 106q12 14 24 0" fill="none" stroke="#5a3e5c" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <p style="margin:0">Thiệp mời dành riêng cho</p>
+      <div class="who script" id="g1">Bạn</div>
+      <button class="btn" id="open">Mở thiệp 💌</button>
+    </div>
+  </section>
+
+  <!-- Trang 2: lời mời -->
+  <section class="pg">
+    <div class="box b2">
+      <span class="deco" style="right:-6px;top:-16px">🌸</span>
+      <span class="tag">TIN VUI 🎉</span>
+      <h1>Hú hú! <span class="hl">Châu</span> tốt nghiệp rồi nè!</h1>
+      <p>Gửi <b id="g2">bạn</b> thân mến,</p>
+      <p>Sau bao đêm thức khuya, deadline và cà phê, mình cũng đã đến ngày tốt nghiệp. Mình muốn có bạn ở đó để cùng chụp ảnh và cười thật tươi!</p>
+      <div class="name script">Nguyễn Châu</div>
+      <p>Vuốt sang để xem thời gian & địa điểm nhé 👉</p>
+    </div>
+  </section>
+
+  <!-- Trang 3: ngày -->
+  <section class="pg">
+    <div class="box b3">
+      <span class="deco" style="left:-8px;top:-14px">☁️</span>
+      <span class="tag">LỊCH HẸN 📅</span>
+      <div class="cal"><div class="top">THÁNG 11</div><div class="day">28</div><div class="dow">Thứ Bảy · 2026</div></div>
+      <p>Nhớ đánh dấu lịch giúp mình nha!</p>
+      <div class="count" id="cd">...</div>
+    </div>
+  </section>
+
+  <!-- Trang 4: địa điểm -->
+  <section class="pg">
+    <div class="box b4">
+      <span class="deco" style="right:-6px;top:-14px">⭐</span>
+      <span class="tag">ĐỊA ĐIỂM 📍</span><br>
+      <div class="pin">🏫</div>
+      <h2>Trường Đại học Công nghệ Thông tin</h2>
+      <div class="addr">Khu đô thị ĐHQG-HCM, Khu phố 9, Phường Linh Xuân, Ho Chi Minh City</div>
+      <a class="btn g" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+C%C3%B4ng+ngh%E1%BB%87+Th%C3%B4ng+tin+%C4%90HQG-HCM">🗺️ Chỉ đường</a>
+    </div>
+  </section>
+
+  <!-- Trang 5: liên hệ -->
+  <section class="pg">
+    <div class="box">
+      <span class="deco" style="left:-8px;top:-14px">🎈</span><span class="deco" style="right:-6px;bottom:30px;animation-delay:-1.5s">🌸</span>
+      <span class="tag">HẸN GẶP BẠN 💖</span>
+      <h1>Nhất định phải đến <span class="hl">nha!</span></h1>
+      <p>Bạn đi được hay không, nhắn mình một tiếng để mình chuẩn bị chỗ cho bạn nè.</p>
+      <a class="btn" href="tel:0935027649">📞 0935 027 649</a>
+      <p style="font-size:15px">Sự hiện diện của bạn là món quà ý nghĩa nhất 🎁</p>
+      <button class="btn g" id="yay">Mình sẽ đến! 🎉</button>
+    </div>
+  </section>
+
+  <!-- Tạo link khách (thêm ?tao=1) -->
+  <section class="pg" id="gen" style="display:none">
+    <div class="box">
+      <h2>Tạo link cho từng khách</h2>
+      <textarea id="names" placeholder="Mỗi dòng một tên&#10;Anh Minh&#10;Chị Lan"></textarea>
+      <button class="btn" id="mk">Tạo link</button>
+      <div id="out"></div>
+    </div>
+  </section>
+</main>
+
+<div id="nav"><button id="prev">‹</button><div id="dots"></div><button id="next">›</button></div>
+
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var name=(q.get('name')||q.get('to')||'').trim();
+  document.getElementById('g1').textContent=name||'Bạn';
+  document.getElementById('g2').textContent=name||'bạn';
+  document.title='Thiệp mời gửi '+(name||'bạn')+' - Nguyễn Châu';
+
+  // nền: icon bay
+  var bg=document.getElementById('bg'),em=['⭐','☁️','🎈','🌸','✨','🎓','💖'];
+  for(var i=0;i<16;i++){var s=document.createElement('span');s.textContent=em[i%em.length];
+    s.style.cssText='left:'+Math.random()*100+'%;font-size:'+(16+Math.random()*22)+'px;animation-duration:'+(12+Math.random()*14)+'s;animation-delay:'+(-Math.random()*20)+'s';bg.appendChild(s);}
+
+  // đếm ngược
+  var cd=document.getElementById('cd'),now=new Date(),t=new Date(2026,10,28),d=Math.ceil((t-now)/864e5);
+  cd.textContent=d>0?'Còn '+d+' ngày nữa thôi! ⏳':(d===0?'Chính là hôm nay! 🎉':'Cảm ơn bạn đã đến 💖');
+
+  // các trang
+  var pgs=[].slice.call(document.querySelectorAll('.pg')).filter(function(p){return p.id!=='gen'});
+  var cur=0,dots=document.getElementById('dots'),nav=document.getElementById('nav');
+  pgs.forEach(function(){dots.appendChild(document.createElement('i'))});
+  function go(n){
+    cur=Math.max(0,Math.min(pgs.length-1,n));
+    pgs.forEach(function(p,i){p.style.transform='translateX('+(i-cur)*100+'%)';p.style.opacity=i===cur?1:0});
+    [].forEach.call(dots.children,function(x,i){x.className=i===cur?'on':''});
+    if(cur===pgs.length-1)confetti(30);
+  }
+  go(0);
+  nav.style.display='none';
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.addEventListener('keydown',function(e){if(nav.style.display==='flex'){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)}});
+  var sx=null;
+  document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(sx===null||nav.style.display!=='flex')return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));sx=null});
+
+  function confetti(n){
+    var c=['#ff8fb1','#7fdcc0','#ffd36b','#9ed8ff'];
+    for(var i=0;i<n;i++){var e=document.createElement('i');e.className='conf';
+      e.style.cssText='left:'+Math.random()*100+'%;background:'+c[i%4]+';animation-duration:'+(2+Math.random()*2)+'s;animation-delay:'+Math.random()*.6+'s;border-radius:'+(i%2?'50%':'2px');
+      document.body.appendChild(e);setTimeout(function(x){x.remove()},5000,e);}
+  }
+  document.getElementById('yay').onclick=function(){confetti(80)};
+
+  // nhạc hộp (tạo bằng Web Audio, không cần file)
+  var ctx,master,timer,next=0,bar=0,on=false,mute=document.getElementById('mute');
+  var mel=[[659.25,783.99,880,783.99,659.25,587.33,523.25,0],[587.33,659.25,783.99,659.25,587.33,523.25,440,0],[523.25,659.25,783.99,880,783.99,659.25,783.99,0],[880,783.99,659.25,587.33,523.25,587.33,523.25,0]];
+  var chd=[[130.81,[261.63,329.63,392]],[110,[220,261.63,329.63]],[87.31,[174.61,220,261.63]],[98,[196,246.94,293.66]]];
+  function note(f,t,d,type,v){var o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.value=f;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05);}
+  var beat=60/108/2;
+  function sched(){
+    while(next<ctx.currentTime+1.2){
+      var b=bar%4,c=chd[b];
+      for(var i=0;i<8;i++){
+        var t=next+i*beat,m=mel[b][i];
+        if(m)note(m,t,beat*2.6,'sine',.2);
+        if(m)note(m*2,t,beat*1.2,'triangle',.04);
+        note(c[1][[0,1,2,1,2,1,2,1][i]],t,beat*1.6,'triangle',.07);
+        if(i===0||i===4)note(c[0],t,beat*3.5,'sine',.22);
+      }
+      next+=beat*8;bar++;
+    }
+  }
+  function start(){
+    try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      ctx=new AC();master=ctx.createGain();master.gain.value=.55;master.connect(ctx.destination);
+      next=ctx.currentTime+.1;timer=setInterval(sched,300);sched();on=true;}catch(e){}
+  }
+  mute.onclick=function(){if(!ctx)return;if(on){ctx.suspend();on=false;mute.textContent='🔇 Nhạc'}else{ctx.resume();on=true;mute.textContent='🔊 Nhạc'}};
+
+  document.getElementById('open').onclick=function(){
+    start();confetti(70);go(1);nav.style.display='flex';mute.style.display='block';
+  };
+
+  // tạo link khách: thêm ?tao=1
+  if(q.get('tao')){
+    pgs.forEach(function(p){p.style.display='none'});
+    var gen=document.getElementById('gen');gen.style.display='flex';
+    document.getElementById('mk').onclick=function(){
+      var base=location.origin+location.pathname,out=document.getElementById('out');out.textContent='';
+      document.getElementById('names').value.split('\n').map(function(x){return x.trim()}).filter(Boolean).forEach(function(n){
+        var u=base+'?name='+encodeURIComponent(n),d=document.createElement('div');
+        d.textContent=n+' → '+u+' ';
+        var b=document.createElement('button');b.textContent='Copy';b.className='btn';b.style.cssText='font-size:12px;padding:2px 12px;box-shadow:0 3px 0 var(--ink)';
+        b.onclick=function(){try{navigator.clipboard.writeText(u);b.textContent='Đã copy'}catch(e){}};
+        d.appendChild(b);out.appendChild(d);
+      });
+    };
+  }
+})();
+</script>
+</body>
+</html>
